@@ -4,11 +4,15 @@ class ListsController < ApplicationController
   end
 
   def create
+    # 新規登録のためのインスタンス変数
     @list = List.new(list_params)
-
+    # データ保存
     if @list.save
+    # フラッシュメッセージ
+      flash[:notice] = "投稿に成功しました。"
       redirect_to list_path(@list.id)
     else
+      flash.now[:alert] = "投稿に失敗しました。"
       render :new
     end
   end
